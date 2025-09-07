@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Professora Sirleide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4e54c8;
+            --secondary: #8f94fb;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        body {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background-color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 32px;
+            color: var(--primary);
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: var(--dark);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .admin-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-img {
+            height: 180px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 20px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .cart {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            transition: right 0.4s;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .cart.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-title {
+            font-size: 22px;
+            color: var(--dark);
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-info {
+            flex-grow: 1;
+            padding: 0 15px;
+        }
+        
+        .cart-item-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .quantity-btn {
+            width: 28px;
+            height: 28px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 3px;
+        }
+        
+        .cart-total {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: right;
+            color: var(--primary);
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #218838;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.open {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            color: var(--dark);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .footer {
+            background-color: var(--light);
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .brasil-time {
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .pix-info {
+            background-color: #f8fff8;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .pix-key {
+            font-weight: bold;
+            color: var(--success);
+            word-break: break-all;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-pendente {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-pago {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-entregue {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 3000;
+            overflow-y: auto;
+        }
+        
+        .admin-panel.open {
+            display: block;
+        }
+        
+        .admin-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-title {
+            font-size: 24px;
+        }
+        
+        .admin-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .admin-content {
+            padding: 30px;
+        }
+        
+        .admin-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .orders-table th, .orders-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .orders-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .orders-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .file-upload {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--primary);
+            background-color: #f9f9f9;
+        }
+        
+        .file-upload i {
+            font-size: 48px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        
+        .file-upload input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-name {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+            word-break: break-all;
+        }
+        
+        .login-link {
+            cursor: pointer;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            background-color: var(--success);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 4000;
+            display: none;
+        }
+        
+        .drag-over {
+            border-color: var(--primary);
+            background-color: #f0f9ff;
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .cart {
+                width: 320px;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Professora Sirleide</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Início</a></li>
+                    <li><a href="#" id="meus-pedidos-btn">Meus Pedidos</a></li>
+                    <li><a href="#">Contato: 82 99645-8870</a></li>
+                </ul>
+            </nav>
+            <button class="admin-btn" id="admin-btn">
+                <i class="fas fa-lock"></i>
+            </button>
+        </header>
+
+        <div class="card">
+            <h2>Produtos em Destaque</h2>
+            <p>Confira nossos materiais educacionais de alta qualidade</p>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+            <!-- Produtos serão carregados aqui -->
+        </div>
+
+        <div class="footer">
+            <p>Horário de Funcionamento: <span class="brasil-time" id="brasil-time"></span></p>
+            <p>Pagamento via PIX - Chave: chavepix.otavio0@gmail.com</p>
+            <p>&copy; <span id="current-year"></span> Professora Sirleide. Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+    <!-- Carrinho de Compras -->
+    <div class="cart" id="cart">
+        <div class="cart-header">
+            <h3 class="cart-title">Carrinho</h3>
+            <button class="close-cart" id="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Itens do carrinho serão adicionados aqui -->
+        </div>
+        <div class="cart-total" id="cart-total">Total: R$ 0,00</div>
+        <button class="checkout-btn" id="checkout-btn">Finalizar Compra</button>
+    </div>
+
+    <!-- Modal de Login/Cadastro -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Login / Cadastro</h3>
+                <button class="close-modal" id="close-login-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" class="form-control" placeholder="Seu e-mail">
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" class="form-control" placeholder="Sua senha">
+            </div>
+            <button class="btn btn-primary" id="login-btn" style="width: 100%; margin-bottom: 15px;">Entrar</button>
+            <button class="btn btn-success" id="register-btn" style="width: 100%;">Criar Conta</button>
+        </div>
+    </div>
+
+    <!-- Modal de Finalização de Compra -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Finalizar Compra</h3>
+                <button class="close-modal" id="close-checkout-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="form-group">
+                <label for="customer-phone">Seu número de WhatsApp</label>
+                <input type="tel" id="customer-phone" class="form-control" placeholder="(82) 99999-9999" required>
+            </div>
+            <div class="pix-info">
+                <p><strong>Chave PIX:</strong> <span class="pix-key">chavepix.otavio0@gmail.com</span></p>
+                <p>Valor: <strong id="pix-value">R$ 0,00</strong></p>
+                <p>Após realizar o pagamento, envie o comprovante para o WhatsApp: <strong>82 99614-1423</strong></p>
+            </div>
+            <div class="form-group">
+                <label>Enviar comprovante (opcional)</label>
+                <div class="file-upload" id="voucher-upload">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Clique para selecionar o comprovante ou solte aqui</p>
+                    <p class="file-name" id="voucher-name">Nenhum arquivo selecionado</p>
+                    <input type="file" id="voucher-file" accept="image/*,.pdf">
+                </div>
+            </div>
+            <button class="btn btn-success" id="confirm-purchase" style="width: 100%;">Confirmar Compra</button>
+        </div>
+    </div>
+
+    <!-- Modal de Meus Pedidos -->
+    <div class="modal" id="orders-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Meus Pedidos</h3>
+                <button class="close-modal" id="close-orders-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="orders-list">
+                <!-- Lista de pedidos será adicionada aqui -->
+                <p style="text-align: center; padding: 20px;">Faça login para visualizar seus pedidos.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Painel Administrativo -->
+    <div class="admin-panel" id="admin-panel">
+        <div class="admin-header">
+            <h2 class="admin-title">Painel Administrativo</h2>
+            <button class="admin-close" id="admin-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="admin-content">
+            <div class="admin-section">
+                <h3 class="section-title">Gerenciar Produtos</h3>
+                <div class="form-group">
+                    <label for="product-name">Nome do Produto</label>
+                    <input type="text" id="product-name" class="form-control" placeholder="Nome do produto">
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Preço (R$)</label>
+                    <input type="number" id="product-price" class="form-control" placeholder="Preço" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Imagem do Produto</label>
+                    <div class="file-upload" id="product-image-upload">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Clique para selecionar a imagem ou solte aqui</p>
+                        <p class="file-name" id="product-image-name">Nenhum arquivo selecionado</p>
+                        <input type="file" id="product-image" accept="image/*">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Arquivo para Download</label>
+                    <div class="file-upload" id="product-file-upload">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Clique para selecionar o arquivo ou solte aqui</p>
+                        <p class="file-name" id="product-file-name">Nenhum arquivo selecionado</p>
+                        <input type="file" id="product-file">
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="add-product">Adicionar Produto</button>
+            </div>
+
+            <div class="admin-section">
+                <h3 class="section-title">Produtos Cadastrados</h3>
+                <div id="admin-products-list">
+                    <!-- Lista de produtos para administração -->
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3 class="section-title">Pedidos</h3>
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>WhatsApp</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-orders-list">
+                        <!-- Pedidos para administração -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos do DOM
+            const adminBtn = document.getElementById('admin-btn');
+            const adminPanel = document.getElementById('admin-panel');
+            const adminClose = document.getElementById('admin-close');
+            const cart = document.getElementById('cart');
+            const closeCart = document.getElementById('close-cart');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const productsGrid = document.getElementById('products-grid');
+            const loginModal = document.getElementById('login-modal');
+            const closeLoginModal = document.getElementById('close-login-modal');
+            const loginBtn = document.getElementById('login-btn');
+            const registerBtn = document.getElementById('register-btn');
+            const checkoutModal = document.getElementById('checkout-modal');
+            const closeCheckoutModal = document.getElementById('close-checkout-modal');
+            const confirmPurchase = document.getElementById('confirm-purchase');
+            const pixValue = document.getElementById('pix-value');
+            const ordersModal = document.getElementById('orders-modal');
+            const closeOrdersModal = document.getElementById('close-orders-modal');
+            const meusPedidosBtn = document.getElementById('meus-pedidos-btn');
+            const ordersList = document.getElementById('orders-list');
+            const addProductBtn = document.getElementById('add-product');
+            const adminOrdersList = document.getElementById('admin-orders-list');
+            const adminProductsList = document.getElementById('admin-products-list');
+            const notification = document.getElementById('notification');
+            const customerPhone = document.getElementById('customer-phone');
+            
+            // Variáveis globais
+            let cartProducts = [];
+            let currentUser = null;
+            let products = [];
+            let orders = [];
+            let productImageFile = null;
+            let productDataFile = null;
+            let voucherFile = null;
+            
+            // Inicialização
+            init();
+            
+            function init() {
+                updateDateTime();
+                setInterval(updateDateTime, 1000); // Atualiza o horário a cada segundo
+                
+                document.getElementById('current-year').textContent = new Date().getFullYear();
+                
+                loadProducts();
+                loadOrders();
+                updateCartUI();
+                setupEventListeners();
+                setupDragAndDrop();
+            }
+            
+            function setupEventListeners() {
+                // Botão administrativo
+                adminBtn.addEventListener('click', openAdminPanel);
+                adminClose.addEventListener('click', closeAdminPanel);
+                
+                // Carrinho
+                checkoutBtn.addEventListener('click', openCheckoutModal);
+                closeCart.addEventListener('click', () => cart.classList.remove('open'));
+                
+                // Login
+                loginBtn.addEventListener('click', handleLogin);
+                registerBtn.addEventListener('click', handleRegister);
+                closeLoginModal.addEventListener('click', () => loginModal.classList.remove('open'));
+                
+                // Checkout
+                closeCheckoutModal.addEventListener('click', () => checkoutModal.classList.remove('open'));
+                confirmPurchase.addEventListener('click', confirmOrder);
+                
+                // Pedidos
+                meusPedidosBtn.addEventListener('click', showUserOrders);
+                closeOrdersModal.addEventListener('click', () => ordersModal.classList.remove('open'));
+                
+                // Admin
+                addProductBtn.addEventListener('click', addProduct);
+                
+                // Upload de arquivos
+                document.getElementById('product-image').addEventListener('change', handleImageUpload);
+                document.getElementById('product-file').addEventListener('change', handleFileUpload);
+                document.getElementById('voucher-file').addEventListener('change', handleVoucherUpload);
+                
+                // Formatação do telefone
+                customerPhone.addEventListener('input', formatPhone);
+            }
+            
+            function setupDragAndDrop() {
+                const uploadAreas = [
+                    'product-image-upload',
+                    'product-file-upload',
+                    'voucher-upload'
+                ];
+                
+                uploadAreas.forEach(id => {
+                    const area = document.getElementById(id);
+                    const input = area.querySelector('input');
+                    
+                    area.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                        area.classList.add('drag-over');
+                    });
+                    
+                    area.addEventListener('dragleave', function() {
+                        area.classList.remove('drag-over');
+                    });
+                    
+                    area.addEventListener('drop', function(e) {
+                        e.preventDefault();
+                        area.classList.remove('drag-over');
+                        
+                        if (e.dataTransfer.files.length) {
+                            input.files = e.dataTransfer.files;
+                            const event = new Event('change');
+                            input.dispatchEvent(event);
+                        }
+                    });
+                });
+            }
+            
+            function formatPhone(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 11) value = value.slice(0, 11);
+                
+                if (value.length > 0) {
+                    value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+                    if (value.length > 10) {
+                        value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+                    }
+                }
+                
+                e.target.value = value;
+            }
+            
+            function updateDateTime() {
+                const now = new Date();
+                const options = { 
+                    timeZone: 'America/Sao_Paulo', 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit',
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                };
+                
+                const dateTimeString = now.toLocaleString('pt-BR', options);
+                document.getElementById('brasil-time').textContent = dateTimeString;
+            }
+            
+            function showNotification(message, isSuccess = true) {
+                notification.textContent = message;
+                notification.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545';
+                notification.style.display = 'block';
+                
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+            
+            function loadProducts() {
+                // Carregar produtos do localStorage
+                const savedProducts = localStorage.getItem('products');
+                if (savedProducts) {
+                    products = JSON.parse(savedProducts);
+                } else {
+                    // Produtos padrão se não houver salvos
+                    products = [
+                        { 
+                            id: 1, 
+                            name: "Curso de Matemática", 
+                            price: 97.00, 
+                            image: "", 
+                            file: "", 
+                            fileName: "" 
+                        },
+                        { 
+                            id: 2, 
+                            name: "Apostila de Português", 
+                            price: 45.00, 
+                            image: "", 
+                            file: "", 
+                            fileName: "" 
+                        },
+                        { 
+                            id: 3, 
+                            name: "Pack de Redação", 
+                            price: 79.90, 
+                            image: "", 
+                            file: "", 
+                            fileName: "" 
+                        },
+                        { 
+                            id: 4, 
+                            name: "Simulados ENEM", 
+                            price: 35.00, 
+                            image: "", 
+                            file: "", 
+                            fileName: "" 
+                        }
+                    ];
+                }
+                
+                renderProducts();
+                renderAdminProducts();
+            }
+            
+            function saveProducts() {
+                localStorage.setItem('products', JSON.stringify(products));
+            }
+            
+            function renderProducts() {
+                productsGrid.innerHTML = '';
+                
+                if (products.length === 0) {
+                    productsGrid.innerHTML = '<div class="card"><p style="text-align: center;">Nenhum produto cadastrado.</p></div>';
+                    return;
+                }
+                
+                products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    
+                    const imageStyle = product.image ? `style="background-image: url('${product.image}')"` : '';
+                    
+                    productCard.innerHTML = `
+                        <div class="product-img" ${imageStyle}>
+                            ${!product.image ? '<i class="fas fa-book"></i>' : ''}
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="product-price">R$ ${product.price.toFixed(2)}</div>
+                            <button class="btn btn-primary add-to-cart" data-id="${product.id}">Adicionar ao Carrinho</button>
+                        </div>
+                    `;
+                    
+                    productsGrid.appendChild(productCard);
+                });
+                
+                // Adicionar event listeners aos botões
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productId = parseInt(this.getAttribute('data-id'));
+                        addToCart(productId);
+                    });
+                });
+            }
+            
+            function renderAdminProducts() {
+                adminProductsList.innerHTML = '';
+                
+                if (products.length === 0) {
+                    adminProductsList.innerHTML = '<p>Nenhum produto cadastrado.</p>';
+                    return;
+                }
+                
+                products.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.className = 'card';
+                    productElement.style.marginBottom = '15px';
+                    
+                    productElement.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <p>Preço: R$ ${product.price.toFixed(2)}</p>
+                        <div class="product-actions">
+                            <button class="btn btn-danger delete-product" data-id="${product.id}">Excluir</button>
+                        </div>
+                    `;
+                    
+                    adminProductsList.appendChild(productElement);
+                });
+                
+                // Adicionar event listeners aos botões de exclusão
+                document.querySelectorAll('.delete-product').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productId = parseInt(this.getAttribute('data-id'));
+                        deleteProduct(productId);
+                    });
+                });
+            }
+            
+            function deleteProduct(productId) {
+                if (confirm('Tem certeza que deseja excluir este produto?')) {
+                    products = products.filter(p => p.id !== productId);
+                    saveProducts();
+                    renderProducts();
+                    renderAdminProducts();
+                    showNotification('Produto excluído com sucesso!');
+                }
+            }
+            
+            function addToCart(productId) {
+                const product = products.find(p => p.id === productId);
+                if (!product) return;
+                
+                const existingItem = cartProducts.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cartProducts.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        quantity: 1
+                    });
+                }
+                
+                updateCartUI();
+                cart.classList.add('open');
+                showNotification('Produto adicionado ao carrinho!');
+            }
+            
+            function updateCartUI() {
+                cartItems.innerHTML = '';
+                
+                if (cartProducts.length === 0) {
+                    cartItems.innerHTML = '<p style="text-align: center; padding: 20px;">Seu carrinho está vazio</p>';
+                    cartTotal.textContent = 'Total: R$ 0,00';
+                    return;
+                }
+                
+                let total = 0;
+                
+                cartProducts.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">R$ ${item.price.toFixed(2)}</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                                <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-danger remove-from-cart" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                    `;
+                    
+                    cartItems.appendChild(cartItem);
+                });
+                
+                cartTotal.textContent = `Total: R$ ${total.toFixed(2)}`;
+                pixValue.textContent = `R$ ${total.toFixed(2)}`;
+                
+                // Adicionar event listeners aos botões de quantidade
+                document.querySelectorAll('.increase-quantity').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        changeQuantity(id, 1);
+                    });
+                });
+                
+                document.querySelectorAll('.decrease-quantity').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        changeQuantity(id, -1);
+                    });
+                });
+                
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('change', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        const newQuantity = parseInt(this.value) || 1;
+                        setQuantity(id, newQuantity);
+                    });
+                });
+                
+                document.querySelectorAll('.remove-from-cart').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        removeFromCart(id);
+                    });
+                });
+            }
+            
+            function changeQuantity(productId, delta) {
+                const item = cartProducts.find(item => item.id === productId);
+                if (item) {
+                    item.quantity += delta;
+                    if (item.quantity < 1) item.quantity = 1;
+                    updateCartUI();
+                }
+            }
+            
+            function setQuantity(productId, quantity) {
+                const item = cartProducts.find(item => item.id === productId);
+                if (item) {
+                    item.quantity = quantity;
+                    if (item.quantity < 1) item.quantity = 1;
+                    updateCartUI();
+                }
+            }
+            
+            function removeFromCart(productId) {
+                cartProducts = cartProducts.filter(item => item.id !== productId);
+                updateCartUI();
+                showNotification('Produto removido do carrinho!');
+            }
+            
+            function openCheckoutModal() {
+                if (cartProducts.length === 0) {
+                    showNotification('Seu carrinho está vazio!', false);
+                    return;
+                }
+                
+                if (!currentUser) {
+                    loginModal.classList.add('open');
+                    return;
+                }
+                
+                // Resetar formulário de checkout
+                customerPhone.value = '';
+                document.getElementById('voucher-name').textContent = 'Nenhum arquivo selecionado';
+                voucherFile = null;
+                
+                checkoutModal.classList.add('open');
+            }
+            
+            function handleLogin() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (!email || !password) {
+                    showNotification('Por favor, preencha todos os campos!', false);
+                    return;
+                }
+                
+                // Simulação de login
+                currentUser = {
+                    email: email,
+                    name: email.split('@')[0]
+                };
+                
+                showNotification('Login realizado com sucesso!');
+                loginModal.classList.remove('open');
+                
+                // Se o carrinho tem itens, abrir checkout
+                if (cartProducts.length > 0) {
+                    checkoutModal.classList.add('open');
+                }
+            }
+            
+            function handleRegister() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (!email || !password) {
+                    showNotification('Por favor, preencha todos os campos!', false);
+                    return;
+                }
+                
+                // Simulação de registro
+                currentUser = {
+                    email: email,
+                    name: email.split('@')[0]
+                };
+                
+                showNotification('Conta criada com sucesso!');
+                loginModal.classList.remove('open');
+                
+                // Se o carrinho tem itens, abrir checkout
+                if (cartProducts.length > 0) {
+                    checkoutModal.classList.add('open');
+                }
+            }
+            
+            function confirmOrder() {
+                if (!currentUser) {
+                    showNotification('Por favor, faça login primeiro!', false);
+                    loginModal.classList.add('open');
+                    return;
+                }
+                
+                if (!customerPhone.value) {
+                    showNotification('Por favor, informe seu número de WhatsApp!', false);
+                    return;
+                }
+                
+                const total = cartProducts.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                // Criar novo pedido
+                const newOrder = {
+                    id: Date.now(), // Usar timestamp como ID único
+                    userId: currentUser.email,
+                    customerPhone: customerPhone.value,
+                    items: [...cartProducts],
+                    total: total,
+                    status: 'pendente',
+                    date: new Date().toISOString(),
+                    file: null,
+                    voucher: voucherFile ? URL.createObjectURL(voucherFile) : null
+                };
+                
+                orders.push(newOrder);
+                saveOrders();
+                
+                // Limpar carrinho
+                cartProducts = [];
+                updateCartUI();
+                
+                checkoutModal.classList.remove('open');
+                
+                showNotification('Compra realizada com sucesso! Faça o PIX e envie o comprovante para o WhatsApp 82 99614-1423');
+            }
+            
+            function showUserOrders() {
+                if (!currentUser) {
+                    showNotification('Por favor, faça login para visualizar seus pedidos!', false);
+                    loginModal.classList.add('open');
+                    return;
+                }
+                
+                const userOrders = orders.filter(order => order.userId === currentUser.email);
+                
+                if (userOrders.length === 0) {
+                    ordersList.innerHTML = '<p style="text-align: center; padding: 20px;">Você não possui pedidos ainda.</p>';
+                } else {
+                    ordersList.innerHTML = '';
+                    
+                    userOrders.forEach(order => {
+                        const orderElement = document.createElement('div');
+                        orderElement.className = 'card';
+                        orderElement.style.marginBottom = '15px';
+                        
+                        let statusClass = 'status-pendente';
+                        if (order.status === 'pago') statusClass = 'status-pago';
+                        if (order.status === 'entregue') statusClass = 'status-entregue';
+                        
+                        // Verificar se há arquivo para download
+                        let downloadButton = '';
+                        if (order.status === 'entregue' && order.file) {
+                            downloadButton = `<a href="${order.file}" download="${order.fileName || 'arquivo'}" class="btn btn-success" style="margin-top: 10px;">Download do Arquivo</a>`;
+                        }
+                        
+                        orderElement.innerHTML = `
+                            <h3>Pedido #${order.id}</h3>
+                            <p>Data: ${new Date(order.date).toLocaleDateString('pt-BR')}</p>
+                            <p>Total: R$ ${order.total.toFixed(2)}</p>
+                            <p>Status: <span class="status-badge ${statusClass}">${order.status}</span></p>
+                            ${downloadButton}
+                        `;
+                        
+                        ordersList.appendChild(orderElement);
+                    });
+                }
+                
+                ordersModal.classList.add('open');
+            }
+            
+            function openAdminPanel() {
+                const password = prompt('Digite a senha de administrador:');
+                if (password === 'otavio10') {
+                    adminPanel.classList.add('open');
+                    loadAdminOrders();
+                    renderAdminProducts();
+                } else {
+                    showNotification('Senha incorreta!', false);
+                }
+            }
+            
+            function closeAdminPanel() {
+                adminPanel.classList.remove('open');
+            }
+            
+            function loadAdminOrders() {
+                adminOrdersList.innerHTML = '';
+                
+                if (orders.length === 0) {
+                    adminOrdersList.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">Nenhum pedido encontrado</td></tr>';
+                    return;
+                }
+                
+                orders.forEach(order => {
+                    const row = document.createElement('tr');
+                    
+                    let statusOptions = '';
+                    ['pendente', 'pago', 'entregue'].forEach(status => {
+                        statusOptions += `<option value="${status}" ${order.status === status ? 'selected' : ''}>${status}</option>`;
+                    });
+                    
+                    // Verificar se há arquivo para upload
+                    let fileInput = '';
+                    if (order.status === 'pago') {
+                        fileInput = `
+                            <div class="form-group">
+                                <label>Arquivo para entrega</label>
+                                <input type="file" class="form-control order-file" data-id="${order.id}">
+                            </div>
+                        `;
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${order.id}</td>
+                        <td>${order.userId}</td>
+                        <td>${order.customerPhone || 'Não informado'}</td>
+                        <td>R$ ${order.total.toFixed(2)}</td>
+                        <td>
+                            <select class="form-control order-status" data-id="${order.id}">
+                                ${statusOptions}
+                            </select>
+                            ${fileInput}
+                        </td>
+                        <td>
+                            <button class="btn btn-danger delete-order" data-id="${order.id}">Excluir</button>
+                        </td>
+                    `;
+                    
+                    adminOrdersList.appendChild(row);
+                });
+                
+                // Adicionar event listeners
+                document.querySelectorAll('.order-status').forEach(select => {
+                    select.addEventListener('change', function() {
+                        const orderId = parseInt(this.getAttribute('data-id'));
+                        updateOrderStatus(orderId, this.value);
+                    });
+                });
+                
+                document.querySelectorAll('.order-file').forEach(input => {
+                    input.addEventListener('change', function() {
+                        const orderId = parseInt(this.getAttribute('data-id'));
+                        handleOrderFileUpload(orderId, this.files[0]);
+                    });
+                });
+                
+                document.querySelectorAll('.delete-order').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const orderId = parseInt(this.getAttribute('data-id'));
+                        deleteOrder(orderId);
+                    });
+                });
+            }
+            
+            function handleOrderFileUpload(orderId, file) {
+                if (!file) return;
+                
+                const order = orders.find(o => o.id === orderId);
+                if (order) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        order.file = e.target.result;
+                        order.fileName = file.name;
+                        order.status = 'entregue';
+                        saveOrders();
+                        loadAdminOrders();
+                        showNotification('Arquivo adicionado com sucesso! Status alterado para ENTREGUE.');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+            
+            function updateOrderStatus(orderId, newStatus) {
+                const order = orders.find(o => o.id === orderId);
+                if (order) {
+                    order.status = newStatus;
+                    saveOrders();
+                    showNotification('Status atualizado com sucesso!');
+                }
+            }
+            
+            function deleteOrder(orderId) {
+                if (confirm('Tem certeza que deseja excluir este pedido?')) {
+                    orders = orders.filter(o => o.id !== orderId);
+                    saveOrders();
+                    loadAdminOrders();
+                    showNotification('Pedido excluído com sucesso!');
+                }
+            }
+            
+            function handleImageUpload(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                productImageFile = file;
+                document.getElementById('product-image-name').textContent = file.name;
+                
+                // Preview da imagem
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Não vamos fazer preview no admin, apenas salvar o arquivo
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            function handleFileUpload(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                productDataFile = file;
+                document.getElementById('product-file-name').textContent = file.name;
+            }
+            
+            function handleVoucherUpload(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                voucherFile = file;
+                document.getElementById('voucher-name').textContent = file.name;
+            }
+            
+            function addProduct() {
+                const name = document.getElementById('product-name').value;
+                const price = parseFloat(document.getElementById('product-price').value);
+                
+                if (!name || isNaN(price)) {
+                    showNotification('Por favor, preencha pelo menos nome e preço do produto!', false);
+                    return;
+                }
+                
+                // Processar imagem
+                if (productImageFile) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imageData = e.target.result;
+                        processFileAndAddProduct(name, price, imageData);
+                    };
+                    reader.readAsDataURL(productImageFile);
+                } else {
+                    processFileAndAddProduct(name, price, '');
+                }
+            }
+            
+            function processFileAndAddProduct(name, price, imageData) {
+                if (productDataFile) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const fileData = e.target.result;
+                        finalizeProductAddition(name, price, imageData, fileData, productDataFile.name);
+                    };
+                    reader.readAsDataURL(productDataFile);
+                } else {
+                    finalizeProductAddition(name, price, imageData, '', '');
+                }
+            }
+            
+            function finalizeProductAddition(name, price, imageData, fileData, fileName) {
+                const newProduct = {
+                    id: Date.now(), // Usar timestamp como ID único
+                    name: name,
+                    price: price,
+                    image: imageData,
+                    file: fileData,
+                    fileName: fileName
+                };
+                
+                products.push(newProduct);
+                saveProducts();
+                renderProducts();
+                renderAdminProducts();
+                
+                // Limpar formulário
+                document.getElementById('product-name').value = '';
+                document.getElementById('product-price').value = '';
+                document.getElementById('product-image').value = '';
+                document.getElementById('product-image-name').textContent = 'Nenhum arquivo selecionado';
+                document.getElementById('product-file').value = '';
+                document.getElementById('product-file-name').textContent = 'Nenhum arquivo selecionado';
+                productImageFile = null;
+                productDataFile = null;
+                
+                showNotification('Produto adicionado com sucesso!');
+            }
+            
+            function loadOrders() {
+                const savedOrders = localStorage.getItem('orders');
+                if (savedOrders) {
+                    orders = JSON.parse(savedOrders);
+                }
+            }
+            
+            function saveOrders() {
+                localStorage.setItem('orders', JSON.stringify(orders));
+            }
+        });
+    </script>
+</body>
+</html>
